@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Go on a Date With Me?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Dancing Script', cursive, sans-serif;
+            background: linear-gradient(to bottom right, #ffe6e6, #ffccff);
+            color: #333;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Floating Hearts */
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff99cc;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: float 5s infinite ease-in-out;
+            transform: rotate(45deg);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff99cc;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-800px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #ff6699;
+            text-shadow: 0 0 8px #ff99cc;
+            margin-bottom: 20px;
+        }
+
+        .us-picture {
+            border: 5px solid #ff99cc;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background: #ff99cc;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            box-shadow: 0 4px 8px rgba(255, 153, 204, 0.5);
+        }
+
+        button:hover {
+            background: #ff6699;
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(255, 102, 153, 0.7);
+        }
+
+        #no-popup {
+            display: none;
+            color: #555;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .us-picture {
+                width: 150px;
+                height: 150px;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+
+            #no-popup {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="container">
+        <img src="us.jpg" alt="Us" class="us-picture">
+        <h1>Will You Go on a Date With Me?</h1>
+        <button id="yes-btn">Yes 💖</button>
+        <button id="no-btn">No ❌</button>
+        <div id="no-popup">Are you sure? 🥺</div>
+    </div>
+
+    <script>
+        // Floating hearts animation
+        const heartContainer = document.getElementById('hearts');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+            heart.style.width = heart.style.height = Math.random() * 15 + 15 + 'px';
+            heartContainer.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // Button interactions
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const noPopup = document.getElementById('no-popup');
+
+        yesBtn.addEventListener('click', () => {
+            window.location.href = 'activity.html';
+        });
+
+        noBtn.addEventListener('click', () => {
+            noPopup.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

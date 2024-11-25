@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Dancing Script', cursive, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom right, #f0d5ff, #ffd9e6);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            animation: gradientShift 8s infinite alternate;
+            background: linear-gradient(135deg, #f0d5ff, #ffd9e6, #ffb3e6, #ff99cc);
+            background-size: 300% 300%;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Heart Emoji */
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            color: #ff66b2;
+            animation: floatHeart 5s ease-in infinite;
+            opacity: 0.8;
+            z-index: -1; /* Keeps hearts behind the content */
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(50vw - 50%)) translateY(-150vh);
+                opacity: 0;
+            }
+        }
+
+        /* Multiple Hearts */
+        .heart:nth-child(odd) {
+            animation-duration: 6s;
+            animation-delay: -1s;
+        }
+
+        .heart:nth-child(even) {
+            animation-duration: 7s;
+            animation-delay: -2s;
+        }
+
+        /* Content Styles */
+        .container {
+            width: 90%;
+            max-width: 700px;
+            border: 2px solid #ff99cc;
+            border-radius: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 1.5s ease;
+            position: relative;
+            z-index: 1; /* Ensures content is above hearts */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #ff66b2;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .game-card {
+            border: 2px solid #ff99cc;
+            border-radius: 15px;
+            padding: 10px;
+            background: #fff0f5;
+            transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            animation: floatCard 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatCard {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .game-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .game-card h2 {
+            font-size: 1.4rem;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        .game-card.selected {
+            border: 4px solid #ff6699;
+        }
+
+        .next-button {
+            background: linear-gradient(to right, #ff6699, #ff99cc);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .next-button:hover {
+            background: linear-gradient(to right, #ff3366, #ff6699);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .next-button:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .game-card h2 {
+                font-size: 1.1rem;
+            }
+
+            .next-button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <!-- Floating hearts (using ❤️ emoji) -->
+    <div class="heart" style="left: 10%; animation-delay: -1s;">❤️</div>
+    <div class="heart" style="left: 25%; animation-delay: -2s;">❤️</div>
+    <div class="heart" style="left: 50%; animation-delay: -3s;">❤️</div>
+    <div class="heart" style="left: 70%; animation-delay: -1.5s;">❤️</div>
+    <div class="heart" style="left: 85%; animation-delay: -2.5s;">❤️</div>
+
+    <div class="container">
+        <h1>What Shall We Play? 🎮</h1>
+        <div class="game-grid">
+            <div class="game-card" id="roblox">
+                <img src="roblox.jpeg" alt="Roblox Cover">
+                <h2>Roblox</h2>
+            </div>
+            <div class="game-card" id="valorant">
+                <img src="valorant.jpg" alt="Valorant Cover">
+                <h2>Valorant</h2>
+            </div>
+            <div class="game-card" id="genshin">
+                <img src="genshin.jpg" alt="Genshin Impact Cover">
+                <h2>Genshin Impact</h2>
+            </div>
+        </div>
+        <button class="next-button" id="next-btn" disabled>Next Step</button>
+    </div>
+
+    <script>
+        let selectedGame = null;
+
+        // Handle card selection
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.game-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedGame = card.id;
+
+                // Enable the next button
+                const nextBtn = document.getElementById('next-btn');
+                nextBtn.disabled = false;
+            });
+        });
+
+        // Handle Next Button
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (selectedGame) {
+                localStorage.setItem('selectedGame', selectedGame);
+
+                // Redirect based on "both" parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('both') === 'true') {
+                    window.location.href = "movie.html?both=true"; // Redirect to Movie Input Page
+                } else {
+                    window.location.href = "date.html"; // Redirect to Choose Date Page
+                }
+            }
+        });
+    </script>
+</body>
+</html>

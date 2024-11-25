@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #ffebcc, #ffd1dc);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #6d20c6;
+            margin-bottom: 15px;
+            animation: slideIn 1s ease-out;
+        }
+
+        /* Slide-in Animation */
+        @keyframes slideIn {
+            from { transform: translateY(-30px); }
+            to { transform: translateY(0); }
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .summary {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            text-align: left;
+            color: #555;
+            animation: fadeIn 1.2s forwards;
+        }
+
+        .summary p {
+            margin: 6px 0;
+        }
+
+        .button {
+            background-color: #6d20c6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 15px auto;
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            animation: scaleUp 0.5s ease-in-out forwards;
+        }
+
+        /* Button Hover and Focus States */
+        .button:hover {
+            background-color: #6d20c6;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(109, 32, 198, 0.6);
+        }
+
+        .button:focus {
+            outline: 3px solid #9ed8c9;
+        }
+
+        /* Scale-up Animation */
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Random Floating Hearts */
+        .heart {
+            position: absolute;
+            font-size: 40px;
+            color: #ff66b2;
+            animation: floatHeart 7s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50vh) rotate(180deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0.5;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            .summary p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" role="main">
+        <h1 tabindex="0">Thank You! ❤️</h1>
+        <p tabindex="0">Here is a summary of your date plan:</p>
+
+        <div class="summary" role="region" aria-label="Summary of your plan">
+            <p><strong>Game Selected:</strong> <span id="game-summary"></span></p>
+            <p><strong>Movie Selected:</strong> <span id="movie-summary"></span></p>
+            <p><strong>Date Selected:</strong> <span id="date-summary"></span></p>
+        </div>
+
+        <button class="button" id="start-over-btn" aria-label="Start Over">Start Over</button>
+
+        <form action="https://formspree.io/f/mkgnvkbe" method="POST" aria-label="Send summary via email">
+            <input type="hidden" name="game" id="game" />
+            <input type="hidden" name="movie" id="movie" />
+            <input type="hidden" name="date" id="date" />
+            <button type="submit" class="button" aria-label="Send Summary">Send Summary</button>
+        </form>
+    </div>
+
+    <!-- Floating Hearts -->
+    <div class="heart" id="heart1">❤️</div>
+    <div class="heart" id="heart2">❤️</div>
+    <div class="heart" id="heart3">❤️</div>
+    <div class="heart" id="heart4">❤️</div>
+    <div class="heart" id="heart5">❤️</div>
+
+    <script>
+        // Retrieve data from localStorage
+        const selectedGame = localStorage.getItem('selectedGame') || "No game selected";
+        const selectedMovie = localStorage.getItem('selectedMovie') || "No movie selected";
+        const selectedDate = localStorage.getItem('selectedDate') || "No date selected";
+
+        // Display the summary
+        document.getElementById('game-summary').innerText = selectedGame;
+        document.getElementById('movie-summary').innerText = selectedMovie;
+        document.getElementById('date-summary').innerText = selectedDate;
+
+        // Set hidden inputs for the form
+        document.getElementById('game').value = selectedGame;
+        document.getElementById('movie').value = selectedMovie;
+        document.getElementById('date').value = selectedDate;
+
+        // Start Over Button Logic
+        document.getElementById('start-over-btn').addEventListener('click', () => {
+            localStorage.clear(); // Clear all data
+            window.location.href = "index.html"; // Redirect to the starting page
+        });
+
+        // JavaScript to Randomize Heart Positions and Animations
+        const hearts = document.querySelectorAll('.heart');
+
+        hearts.forEach((heart) => {
+            // Randomize the initial position and animation delay
+            const randomLeft = Math.random() * 100; // Random left position (0 to 100%)
+            const randomDuration = Math.random() * (8 - 6) + 6; // Random duration between 6s to 8s
+            const randomDelay = Math.random() * 2; // Random delay between 0s to 2s
+
+            heart.style.left = `${randomLeft}%`;
+            heart.style.animationDuration = `${randomDuration}s`;
+            heart.style.animationDelay = `-${randomDelay}s`;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a Date</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Dancing Script', cursive, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom right, #ffebcc, #ffd1dc);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            animation: gradientShift 8s infinite alternate;
+            background: linear-gradient(135deg, #ffebcc, #ffd1dc, #ff99cc, #ffccff);
+            background-size: 300% 300%;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Heart Animation */
+        .heart {
+            position: absolute;
+            font-size: 40px;
+            color: #ff66b2;
+            animation: floatHeart 7s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50vh) rotate(180deg);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0.5;
+            }
+        }
+
+        .heart:nth-child(odd) {
+            animation-duration: 8s;
+            animation-delay: -2s;
+        }
+
+        .heart:nth-child(even) {
+            animation-duration: 6s;
+            animation-delay: -1s;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            border: 2px solid #fff;
+            border-radius: 15px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #ff6699;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 102, 153, 0.6);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 102, 153, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 10px rgba(255, 102, 153, 0.6);
+            }
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* Date Picker Styling */
+        .date-picker {
+            width: 80%;
+            max-width: 500px;
+            padding: 12px 15px;
+            font-size: 1.1rem;
+            border: 2px solid #ff99cc;
+            border-radius: 25px;
+            outline: none;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .date-picker:focus {
+            border-color: #ff6699;
+            box-shadow: 0 0 8px rgba(255, 102, 153, 0.5);
+        }
+
+        /* Button Styling */
+        .finish-button {
+            background: linear-gradient(to right, #ff99cc, #ff6699);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .finish-button:hover {
+            background: linear-gradient(to right, #ff6699, #ff99cc);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .finish-button:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+        }
+
+        /* Feedback Message Styling */
+        .feedback-message {
+            color: #ff6699;
+            font-size: 1rem;
+            display: none;
+        }
+
+        .feedback-message.visible {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .date-picker {
+                font-size: 1rem;
+                padding: 10px;
+            }
+
+            .finish-button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+
+    <!-- Floating Hearts -->
+    <div class="heart" style="left: 10%;">❤️</div>
+    <div class="heart" style="left: 30%;">❤️</div>
+    <div class="heart" style="left: 50%;">❤️</div>
+    <div class="heart" style="left: 70%;">❤️</div>
+    <div class="heart" style="left: 90%;">❤️</div>
+
+    <div class="container">
+        <h1>Pick a Date for Our Adventure 🌟</h1>
+        <p>Select a day to make it official!</p>
+        <input type="date" id="date-picker" class="date-picker" aria-label="Select a date" />
+        <p id="feedback-message" class="feedback-message" role="alert">Please select a date before proceeding!</p>
+        <button class="finish-button" id="finish-btn" disabled aria-disabled="true">Finish</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            localStorage.removeItem('selectedDate'); // Clear previous selection
+        });
+
+        const finishBtn = document.getElementById('finish-btn');
+        const datePicker = document.getElementById('date-picker');
+        const feedbackMessage = document.getElementById('feedback-message');
+
+        // Enable the button when a valid date is selected
+        datePicker.addEventListener('input', () => {
+            const date = datePicker.value;
+            finishBtn.disabled = !date;
+            finishBtn.setAttribute('aria-disabled', String(!date));
+
+            // Hide the feedback message when a date is selected
+            if (date) {
+                feedbackMessage.classList.remove('visible');
+            }
+        });
+
+        // Handle Finish button click
+        finishBtn.addEventListener('click', () => {
+            const selectedDate = datePicker.value;
+
+            if (selectedDate) {
+                // Save the selected date to localStorage
+                localStorage.setItem('selectedDate', selectedDate);
+
+                // Retrieve saved game and movie from localStorage
+                const selectedGame = localStorage.getItem('selectedGame') || "No game selected";
+                const selectedMovie = localStorage.getItem('selectedMovie') || "No movie selected";
+
+                // Show the summary
+                alert(`You chose to play: ${selectedGame}\nYou chose to watch: ${selectedMovie}\nYour date is set for: ${selectedDate}!`);
+
+                // Redirect to Thank You Page
+                window.location.href = "thankyou.html";
+            } else {
+                feedbackMessage.textContent = "Please select a date before proceeding!";
+                feedbackMessage.classList.add('visible');
+            }
+        });
+    </script>
+</body>
+</html>
